@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Anshul Shrivastava</title>
+    <meta
+      name="description"
+      content="Portfolio setup for Anshul Shrivastava, featuring product-minded engineering work, case studies, and an AI-ready profile chatbot."
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="ambient-glow ambient-glow-left" aria-hidden="true"></div>
+    <div class="ambient-glow ambient-glow-right" aria-hidden="true"></div>
+    <div class="page-shell">
+      <header class="topbar">
+        <div class="wordmark">Anshul Shrivastava</div>
+        <nav class="topnav" aria-label="Primary">
+          <a href="#work">Work</a>
+          <a href="#story">Story</a>
+          <a href="#experience">Experience</a>
+          <button class="nav-chat-trigger" type="button" data-open-chat>Ask Anshul</button>
+        </nav>
+      </header>
+
+      <main>
+        <section class="hero">
+          <div class="hero-copy">
+            <h1>Anshul Shrivastava</h1>
+            <p class="hero-summary">
+              Product-focused engineer with 5+ years building identity, fraud, and checkout systems at
+              PayPal, impacting 400M+ users and driving $25M+ in revenue uplift and risk mitigation.
+            </p>
+            <div class="hero-signals" aria-label="Key signals">
+              <article class="signal-pill">
+                <span class="signal-value">PayPal</span>
+                <span class="signal-label">Identity, Fraud, Checkout</span>
+              </article>
+              <article class="signal-pill">
+                <span class="signal-value">Cornell Tech MBA</span>
+                <span class="signal-label">Merit Scholar, Product Builders Club VP</span>
+              </article>
+              <article class="signal-pill">
+                <span class="signal-value">BITS Pilani</span>
+                <span class="signal-label">Computer Science</span>
+              </article>
+            </div>
+            <div class="hero-actions">
+              <a class="hero-link-secondary" href="mailto:anshul12.career@gmail.com">anshul12.career@gmail.com</a>
+              <a class="hero-link-secondary" href="./Anshul_Shrivastava.pdf" target="_blank" rel="noreferrer">View Resume</a>
+              <a class="hero-link-secondary" href="https://www.linkedin.com/in/anshul-shrivastava-bits/" target="_blank" rel="noreferrer">LinkedIn</a>
+              <a class="hero-link-secondary" href="https://github.com/anshul570" target="_blank" rel="noreferrer">GitHub</a>
+            </div>
+            <p class="hero-note">
+              Interested in product, AI, strategy, and high-scale user systems. Currently open to
+              opportunities.
+            </p>
+          </div>
+
+          <div class="hero-portrait-card" aria-label="Portrait">
+            <div class="hero-portrait-frame">
+              <img src="./assets/anshul-hero-portrait.jpeg" alt="Portrait of Anshul Shrivastava" />
+            </div>
+            <div class="hero-chat-preview">
+              <div class="hero-chat-preview-header">
+                <span class="hero-chat-preview-title">Ask Anshul</span>
+                <span class="hero-chat-preview-status">RAG rebuild in progress</span>
+              </div>
+              <p class="hero-chat-preview-copy">
+                The conversational portfolio is being rebuilt into a richer experience across projects,
+                resume context, and leadership stories.
+              </p>
+              <button class="hero-chat-preview-prompt" type="button" data-open-chat>
+                View chatbot status
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <section class="band intro-band" id="story">
+          <div class="section-heading">
+            <p class="eyebrow">About Me</p>
+          </div>
+          <div class="about-copy">
+            <p>
+              I'm a product-focused engineer and MBA candidate at Cornell Tech, graduating in May 2026,
+              with 5+ years of experience building and scaling identity, authentication, and checkout
+              systems at PayPal, impacting 400M+ users across a portfolio of initiatives spanning fraud
+              prevention, passkey adoption, checkout optimization, and developer tooling.
+            </p>
+            <p>
+              My work has always lived at the intersection of technical execution and customer impact. At
+              PayPal, I led cross-functional teams, ran A/B experiments, and owned delivery across the full
+              product lifecycle, always anchored to one question: what does this mean for the customer
+              trying to log in, check out, or trust us with their money? That lens shaped everything from
+              how I diagnosed fraud attack vectors to how I measured login performance gaps that were
+              masking real user pain, and ultimately how I built user experiences that were faster, safer,
+              and more accessible.
+            </p>
+            <p>
+              At Cornell Tech, I've been building AI products. As a consultant with Google's CISO Office,
+              I'm building a multi-agent RAG-powered compliance automation platform for GCP that replaces
+              manual NIST control mapping and screenshot-based audit evidence with an agentic LLM pipeline.
+              As VP of the AI Product Management Club, I launched an interview prep cohort connecting
+              students with industry practitioners and alumni. On the side, I've been shipping personal AI
+              projects: an AI chief of staff that reads my emails, classifies every signal, and runs my job
+              search pipeline on autopilot, surfacing only what deserves a decision; a real-time sports
+              analytics prototype called BatSignal built with Kafka and Llama on Cerebras; an AI-powered
+              parking management concept exploring how agents can optimize urban space in real time; and
+              this portfolio itself, which answers questions about me using RAG.
+            </p>
+            <p>
+              I'm driven by the craft of AI product management: defining the right problem, making
+              opinionated bets on where AI genuinely adds value, and building systems that users can trust
+              enough to rely on every day.
+            </p>
+          </div>
+        </section>
+
+        <section class="band work-band" id="work">
+          <div class="section-heading">
+            <p class="eyebrow">Featured Projects</p>
+          </div>
+          <div class="work-grid" id="featured-work"></div>
+        </section>
+
+        <section class="band explorations-band" id="explorations">
+          <div class="section-heading">
+            <p class="eyebrow">AI Builds & Explorations</p>
+          </div>
+          <div class="exploration-grid" id="exploration-projects"></div>
+        </section>
+
+        <section class="band timeline-band" id="experience">
+          <div class="section-heading">
+            <p class="eyebrow">Experience</p>
+            <h2>Timeline</h2>
+          </div>
+          <div class="experience-groups">
+            <div class="experience-group">
+              <div class="section-heading compact experience-subheading">
+                <p class="eyebrow">Professional Experience</p>
+              </div>
+              <div class="timeline" id="experience-list"></div>
+            </div>
+            <div class="experience-group">
+              <div class="section-heading compact experience-subheading">
+                <p class="eyebrow">Consulting & Applied Projects</p>
+              </div>
+              <div class="timeline" id="consulting-list"></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="band leadership-band" id="leadership">
+          <div class="section-heading compact">
+            <p class="eyebrow">Leadership & Community</p>
+          </div>
+          <div class="leadership-grid" id="leadership-list"></div>
+        </section>
+
+        <section class="band education-band">
+          <div class="section-heading compact">
+            <p class="eyebrow">Education</p>
+            <h2>Academic foundation</h2>
+          </div>
+          <div id="education-list" class="stack-list"></div>
+        </section>
+
+        <section class="band skills-band">
+          <div class="section-heading compact">
+            <p class="eyebrow">Skills</p>
+            <h2>What I work with</h2>
+          </div>
+          <div id="skills-list" class="skills-board"></div>
+        </section>
+
+        <section class="band connect-band" id="connect">
+          <div class="connect-shell">
+            <div class="connect-copy">
+              <p class="eyebrow">Let's Connect</p>
+              <h2>Open to opportunities, ideas, and good conversations.</h2>
+              <p>
+                Whether you want to discuss a role, collaborate on a product, or just say hi, I would
+                love to hear from you.
+              </p>
+            </div>
+            <div class="connect-actions">
+              <a class="connect-link connect-link-accent" href="mailto:anshul12.career@gmail.com">Email</a>
+              <a class="connect-link" href="./Anshul_Shrivastava.pdf" target="_blank" rel="noreferrer">Resume</a>
+              <a class="connect-link" href="https://www.linkedin.com/in/anshul-shrivastava-bits/" target="_blank" rel="noreferrer">LinkedIn</a>
+              <a class="connect-link" href="https://github.com/anshul570" target="_blank" rel="noreferrer">GitHub</a>
+              <button class="connect-link" type="button" data-open-chat>Ask Anshul</button>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div class="chat-overlay" id="chat-overlay" hidden></div>
+    <aside class="chat-drawer" id="chat-drawer" aria-hidden="true">
+      <div class="chat-drawer-header">
+        <div>
+          <p class="eyebrow">Ask Anshul</p>
+          <h2>Portfolio AI</h2>
+        </div>
+        <button class="chat-close" type="button" id="chat-close" aria-label="Close chat">Close</button>
+      </div>
+      <p class="chat-intro">
+        This portfolio chatbot is currently under maintenance while I rebuild it into a more grounded
+        RAG experience across projects, resume context, and personal knowledge.
+      </p>
+      <div class="prompt-list drawer-prompts">
+        <span class="prompt-chip prompt-chip-static">Built as a portfolio AI layer</span>
+        <span class="prompt-chip prompt-chip-static">Reworking retrieval and answer quality</span>
+        <span class="prompt-chip prompt-chip-static">Coming back soon</span>
+      </div>
+      <div class="chat-panel" aria-live="polite">
+        <div class="chat-log" id="chat-log">
+          <article class="chat-message assistant">
+            <p>
+              Ask Anshul is currently offline for a rebuild. The next version will answer questions about
+              my work, projects, leadership, and career direction using a more structured RAG system.
+            </p>
+          </article>
+        </div>
+        <form id="chat-form" class="chat-form chat-form-disabled">
+          <label class="sr-only" for="chat-input">Ask a question</label>
+          <input
+            id="chat-input"
+            name="chat-input"
+            type="text"
+            placeholder="Chatbot temporarily unavailable"
+            autocomplete="off"
+            disabled
+          />
+          <button type="submit" disabled>Coming Soon</button>
+        </form>
+      </div>
+    </aside>
+
+    <script src="./content.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>

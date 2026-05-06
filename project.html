@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Project | Anshul Shrivastava</title>
+    <meta
+      name="description"
+      content="Project detail page for Anshul Shrivastava's portfolio."
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="ambient-glow ambient-glow-left" aria-hidden="true"></div>
+    <div class="ambient-glow ambient-glow-right" aria-hidden="true"></div>
+    <div class="page-shell">
+      <header class="topbar">
+        <a class="wordmark wordmark-link" href="./index.html">Anshul Shrivastava</a>
+        <nav class="topnav" aria-label="Project navigation">
+          <a href="./index.html#work">Selected Work</a>
+          <a href="./index.html#experience">Experience</a>
+          <a href="./index.html#story">Story</a>
+        </nav>
+      </header>
+
+      <main>
+        <section class="project-hero">
+          <div class="project-hero-copy">
+            <a class="project-back-link" href="./index.html#work">
+              <span aria-hidden="true">←</span>
+              <span>Back to selected work</span>
+            </a>
+            <p class="eyebrow" id="project-tag">Project</p>
+            <h1 id="project-title">Project detail</h1>
+            <p class="project-summary" id="project-summary"></p>
+            <p class="project-impact" id="project-impact"></p>
+            <a class="project-proof-link" id="project-proof-link" href="#" target="_blank" rel="noreferrer" hidden></a>
+          </div>
+          <div class="project-hero-side">
+            <p class="project-side-kicker" id="project-metric-label">Key Metrics</p>
+            <section class="project-metrics" id="project-metrics"></section>
+          </div>
+        </section>
+
+        <section class="band project-detail-band">
+          <div class="project-detail-grid">
+            <div class="project-sidebar">
+              <p class="project-side-label" id="project-detail-label">Overview</p>
+              <h2 id="project-detail-headline">Project narrative</h2>
+            </div>
+            <div class="project-story">
+              <p class="project-lead" id="project-detail-overview"></p>
+              <div class="project-sections" id="project-sections"></div>
+              <section class="project-summary-block">
+                <p class="project-mini-label">Key Moves</p>
+                <ul class="spotlight-list" id="project-detail-highlights"></ul>
+              </section>
+              <section class="project-summary-block">
+                <p class="project-mini-label">Outcome</p>
+                <p class="spotlight-outcome" id="project-detail-outcome"></p>
+              </section>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="./content.js"></script>
+    <script src="./project.js"></script>
+  </body>
+</html>
