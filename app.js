@@ -202,20 +202,11 @@ function closeChat() {
 
 chatForm.addEventListener("submit", (event) => {
   event.preventDefault();
-  const question = chatInput.value.trim();
-
-  if (!question) {
-    return;
-  }
-
-  handleQuestion(question);
-  chatInput.value = "";
 });
 
 chatOpeners.forEach((button) => {
   button.addEventListener("click", () => {
     openChat();
-    chatInput.focus();
   });
 });
 
@@ -226,15 +217,6 @@ document.addEventListener("keydown", (event) => {
   if (event.key === "Escape" && chatDrawer.classList.contains("is-open")) {
     closeChat();
   }
-});
-
-document.querySelectorAll(".prompt-chip").forEach((button) => {
-  button.addEventListener("click", () => {
-    const prompt = button.dataset.prompt;
-    if (prompt) {
-      handleQuestion(prompt);
-    }
-  });
 });
 
 renderFeaturedWork();
