@@ -103,14 +103,26 @@ function buildFallbackAnswer(question, docs) {
   };
 }
 
+function cleanAnswer(text) {
+  return String(text || "")
+    .replace(/\*\*(.*?)\*\*/g, "$1")
+    .replace(/\*(.*?)\*/g, "$1")
+    .replace(/`(.*?)`/g, "$1")
+    .replace(/^#+\s*/gm, "")
+    .trim();
+}
+
 async function askClaude(question, docs) {
   const context = buildContext(docs);
   const system = [
     "You are Ask Anshul, the portfolio assistant for Anshul Shrivastava.",
     "Answer only from the provided portfolio context.",
     "If the context is incomplete, say that briefly instead of inventing facts.",
-    "Write in a warm, sharp, recruiter-friendly voice.",
-    "Prefer concise paragraphs or bullets.",
+    "Write in the most human, polished, stakeholder-ready voice possible.",
+    "Sound strong for product, strategy, and consulting audiences.",
+    "Use plain text only. Do not use markdown, bold formatting, headings, or bullets with asterisks.",
+    "Prefer short paragraphs and crisp synthesis over list-heavy answers.",
+    "Speak as if you are helping a thoughtful recruiter or stakeholder understand Anshul quickly.",
     "When helpful, synthesize across sources instead of repeating them one by one.",
   ].join(" ");
 
@@ -153,11 +165,11 @@ async function askClaude(question, docs) {
   }
 
   const payload = await response.json();
-  const answer = (payload.content || [])
+  const answer = cleanAnswer((payload.content || [])
     .filter((block) => block.type === "text")
     .map((block) => block.text)
     .join("\n")
-    .trim();
+    .trim());
 
   return {
     answer:
