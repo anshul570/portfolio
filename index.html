@@ -64,16 +64,16 @@
               <img src="./assets/anshul-hero-portrait.jpeg" alt="Portrait of Anshul Shrivastava" />
             </div>
             <div class="hero-chat-preview">
-              <div class="hero-chat-preview-header">
+            <div class="hero-chat-preview-header">
                 <span class="hero-chat-preview-title">Ask Anshul</span>
-                <span class="hero-chat-preview-status">RAG rebuild in progress</span>
+                <span class="hero-chat-preview-status">Live portfolio assistant</span>
               </div>
               <p class="hero-chat-preview-copy">
-                The conversational portfolio is being rebuilt into a richer experience across projects,
-                resume context, and leadership stories.
+                Ask about PayPal, Google Cloud, leadership at Cornell Tech, AI projects, or what kind of
+                roles fit me best.
               </p>
               <button class="hero-chat-preview-prompt" type="button" data-open-chat>
-                View chatbot status
+                What should I know about Anshul in 30 seconds?
               </button>
             </div>
           </div>
@@ -204,45 +204,38 @@
       <div class="chat-drawer-header">
         <div>
           <p class="eyebrow">Ask Anshul</p>
-          <h2>Coming Back Soon</h2>
+          <h2>Portfolio AI</h2>
         </div>
         <button class="chat-close" type="button" id="chat-close" aria-label="Close chat">Close</button>
       </div>
       <p class="chat-intro">
-        This portfolio chatbot is currently under maintenance while I rebuild it into a more grounded
-        RAG experience across projects, resume context, and personal knowledge.
+        Ask about PayPal, Cornell Tech, BITS Pilani, platform work, AI builds, leadership stories, or
+        where this profile is headed next.
       </p>
       <div class="prompt-list drawer-prompts">
-        <span class="prompt-chip prompt-chip-static">Built as a portfolio AI layer</span>
-        <span class="prompt-chip prompt-chip-static">Reworking retrieval and answer quality</span>
-        <span class="prompt-chip prompt-chip-static">Coming back soon</span>
+        <button class="prompt-chip" type="button" data-chat-prompt="What did Anshul do at PayPal?">What did Anshul do at PayPal?</button>
+        <button class="prompt-chip" type="button" data-chat-prompt="Tell me about passkeys and platform work.">Tell me about passkeys and platform work.</button>
+        <button class="prompt-chip" type="button" data-chat-prompt="How does Anshul lead through ambiguity?">How does Anshul lead through ambiguity?</button>
       </div>
       <div class="chat-panel" aria-live="polite">
         <div class="chat-log" id="chat-log">
           <article class="chat-message assistant">
             <p>
-              Ask Anshul is currently offline for a rebuild. The next version will answer questions about
-              my work, projects, leadership, and career direction using a more structured RAG system.
-            </p>
-          </article>
-          <article class="chat-message assistant secondary">
-            <p>
-              For now, the best way to explore is through the featured case studies, AI builds, and the
-              resume link on the site.
+              I can answer from the portfolio, project writeups, resume context, and leadership story.
+              Ask a question or start with one of the prompts above.
             </p>
           </article>
         </div>
-        <form id="chat-form" class="chat-form chat-form-disabled">
+        <form id="chat-form" class="chat-form">
           <label class="sr-only" for="chat-input">Ask a question</label>
           <input
             id="chat-input"
             name="chat-input"
             type="text"
-            placeholder="Chatbot temporarily unavailable"
+            placeholder="Ask about projects, impact, leadership, or role fit"
             autocomplete="off"
-            disabled
           />
-          <button type="submit" disabled>Coming Soon</button>
+          <button type="submit">Ask</button>
         </form>
       </div>
     </aside>

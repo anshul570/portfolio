@@ -14,6 +14,8 @@ const chatDrawer = document.getElementById("chat-drawer");
 const chatOverlay = document.getElementById("chat-overlay");
 const chatClose = document.getElementById("chat-close");
 const chatOpeners = document.querySelectorAll("[data-open-chat]");
+const chatPrompts = document.querySelectorAll("[data-chat-prompt]");
+let chatBusy = false;
 
 function renderFeaturedWork() {
   featuredWorkRoot.innerHTML = content.featuredWork
@@ -146,46 +148,89 @@ function renderSkills() {
     .join("");
 }
 
-function appendMessage(role, text) {
+function appendMessage(role, text, options = {}) {
   const message = document.createElement("article");
   message.className = `chat-message ${role}`;
-  message.innerHTML = `<p>${text}</p>`;
+  const sourcesMarkup =
+    role === "assistant" && options.sources?.length
+      ? `
+        <div class="chat-sources">
+          ${options.sources
+            .map(
+              (source) =>
+                `<a class="chat-source-link" href="${source.url}" target="_blank" rel="noreferrer">${source.title}</a>`,
+            )
+            .join("")}
+        </div>
+      `
+      : "";
+  message.innerHTML = `<p>${text}</p>${sourcesMarkup}`;
   chatLog.appendChild(message);
   chatLog.scrollTop = chatLog.scrollHeight;
+  return message;
 }
 
-function scoreKnowledgeEntry(query, entry) {
-  const normalizedQuery = query.toLowerCase();
-  return entry.keywords.reduce((score, keyword) => {
-    return score + (normalizedQuery.includes(keyword) ? 2 : 0);
-  }, entry.title.toLowerCase().split(" ").reduce((score, token) => {
-    return score + (normalizedQuery.includes(token) ? 1 : 0);
-  }, 0));
+function setChatBusy(nextBusy) {
+  chatBusy = nextBusy;
+  chatInput.disabled = nextBusy;
+  const submitButton = chatForm.querySelector("button");
+  submitButton.disabled = nextBusy;
+  submitButton.textContent = nextBusy ? "Thinking..." : "Ask";
 }
 
-function buildAnswer(query) {
-  const ranked = [...content.knowledge]
-    .map((entry) => ({ entry, score: scoreKnowledgeEntry(query, entry) }))
-    .sort((left, right) => right.score - left.score);
+function getApiBase() {
+  if (window.location.protocol === "file:") {
+    return null;
+  }
+  return `${window.location.origin}/api/chat`;
+}
 
-  const top = ranked[0];
-  const secondary = ranked[1];
-
-  if (!top || top.score === 0) {
-    return "This setup knows the portfolio basics already, but it still needs more of Anshul's personal notes, project writeups, and life context to answer that well. That is a good candidate for the next knowledge drop.";
+async function handleQuestion(question) {
+  const trimmed = question.trim();
+  if (!trimmed || chatBusy) {
+    return;
   }
 
-  if (!secondary || secondary.score === 0 || secondary.entry.title === top.entry.title) {
-    return top.entry.answer;
-  }
-
-  return `${top.entry.answer} Related angle: ${secondary.entry.answer}`;
-}
-
-function handleQuestion(question) {
   openChat();
-  appendMessage("user", question);
-  appendMessage("assistant", buildAnswer(question));
+  appendMessage("user", trimmed);
+  chatInput.value = "";
+  setChatBusy(true);
+
+  const typingMessage = appendMessage("assistant secondary", "Thinking through the most relevant portfolio context...");
+
+  try {
+    const endpoint = getApiBase();
+
+    if (!endpoint) {
+      throw new Error("Local file preview cannot call the chat API. Use the deployed site or `vercel dev`.");
+    }
+
+    const response = await fetch(endpoint, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ question: trimmed }),
+    });
+
+    const payload = await response.json();
+    typingMessage.remove();
+
+    if (!response.ok) {
+      throw new Error(payload.detail || payload.error || "The portfolio assistant could not answer that right now.");
+    }
+
+    appendMessage("assistant", payload.answer, { sources: payload.sources });
+  } catch (error) {
+    typingMessage.remove();
+    appendMessage(
+      "assistant secondary",
+      error.message || "The portfolio assistant is having trouble right now. Please try again in a moment.",
+    );
+  } finally {
+    setChatBusy(false);
+    chatInput.focus();
+  }
 }
 
 function openChat() {
@@ -202,11 +247,22 @@ function closeChat() {
 
 chatForm.addEventListener("submit", (event) => {
   event.preventDefault();
+  handleQuestion(chatInput.value);
 });
 
 chatOpeners.forEach((button) => {
   button.addEventListener("click", () => {
     openChat();
+    const prompt = button.dataset.chatPrompt || button.textContent;
+    if (button.classList.contains("hero-chat-preview-prompt") && prompt) {
+      chatInput.value = prompt.trim();
+    }
+  });
+});
+
+chatPrompts.forEach((button) => {
+  button.addEventListener("click", () => {
+    handleQuestion(button.dataset.chatPrompt || button.textContent || "");
   });
 });
 

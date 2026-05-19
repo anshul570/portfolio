@@ -1128,7 +1128,19 @@ button {
 }
 
 .prompt-chip {
+  border: 1px solid rgba(207, 225, 232, 0.14);
+  background: rgba(20, 33, 42, 0.88);
+  color: rgba(238, 244, 247, 0.94);
+  padding: 10px 14px;
+  border-radius: 999px;
+  font: inherit;
   cursor: pointer;
+}
+
+.prompt-chip:hover,
+.prompt-chip:focus-visible {
+  border-color: rgba(111, 225, 210, 0.34);
+  color: var(--ink);
 }
 
 .prompt-chip-static {
@@ -1162,6 +1174,29 @@ button {
   margin: 0;
 }
 
+.chat-sources {
+  margin-top: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chat-source-link {
+  display: inline-flex;
+  align-items: center;
+  padding: 7px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(111, 225, 210, 0.18);
+  color: rgba(111, 225, 210, 0.94);
+  font-size: 0.84rem;
+}
+
+.chat-source-link:hover,
+.chat-source-link:focus-visible {
+  border-color: rgba(111, 225, 210, 0.38);
+  color: rgba(238, 244, 247, 0.98);
+}
+
 .chat-message.assistant {
   background: rgba(20, 33, 42, 0.95);
 }
@@ -1184,18 +1219,18 @@ button {
   border-top: 1px solid var(--line);
 }
 
-.chat-form-disabled input,
-.chat-form-disabled button {
-  opacity: 0.72;
-  cursor: not-allowed;
-}
-
 .chat-form input {
   min-width: 0;
   padding: 14px 16px;
   border: 1px solid rgba(207, 225, 232, 0.14);
   background: rgba(5, 10, 14, 0.88);
   color: var(--ink);
+}
+
+.chat-form input:disabled,
+.chat-form button:disabled {
+  opacity: 0.72;
+  cursor: not-allowed;
 }
 
 .chat-form button {
