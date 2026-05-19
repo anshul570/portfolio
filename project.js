@@ -11,6 +11,8 @@ const projectTitle = document.getElementById("project-title");
 const projectSummary = document.getElementById("project-summary");
 const projectImpact = document.getElementById("project-impact");
 const projectProofLink = document.getElementById("project-proof-link");
+const projectLinksBlock = document.getElementById("project-links-block");
+const projectLinksList = document.getElementById("project-links-list");
 const projectMetricLabel = document.getElementById("project-metric-label");
 const projectMetrics = document.getElementById("project-metrics");
 const projectDetailLabel = document.getElementById("project-detail-label");
@@ -26,10 +28,28 @@ if (selectedProject) {
   projectTitle.textContent = selectedProject.title;
   projectSummary.textContent = selectedProject.summary;
   projectImpact.textContent = selectedProject.impact;
+  const links = [...(selectedProject.links ?? [])];
   if (selectedProject.proof) {
     projectProofLink.hidden = false;
     projectProofLink.href = selectedProject.proof.url;
     projectProofLink.textContent = selectedProject.proof.label;
+    if (!links.some((item) => item.url === selectedProject.proof.url)) {
+      links.unshift(selectedProject.proof);
+    }
+  } else {
+    projectProofLink.hidden = true;
+  }
+
+  if (links.length) {
+    projectLinksBlock.hidden = false;
+    projectLinksList.innerHTML = links
+      .map(
+        (item) =>
+          `<a class="project-link-chip" href="${item.url}" target="_blank" rel="noreferrer">${item.label}</a>`,
+      )
+      .join("");
+  } else {
+    projectLinksBlock.hidden = true;
   }
 
   if (selectedProject.detail) {

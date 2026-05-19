@@ -19,6 +19,12 @@ window.PORTFOLIO_CONTENT = {
         label: "External proof: DataDome customer story",
         url: "https://datadome.co/customers-stories/paypal-s-strategy-to-stop-ai-powered-bots-reduce-fraud/",
       },
+      links: [
+        {
+          label: "DataDome customer story",
+          url: "https://datadome.co/customers-stories/paypal-s-strategy-to-stop-ai-powered-bots-reduce-fraud/",
+        },
+      ],
       detail: {
         label: "Identity platform",
         metricLabel: "Key Metrics",
@@ -152,6 +158,20 @@ window.PORTFOLIO_CONTENT = {
         label: "Frontend prototype: Attest Compliance",
         url: "https://claude.ai/public/artifacts/a93e556a-6719-44be-b269-a19658463d47",
       },
+      links: [
+        {
+          label: "Frontend prototype",
+          url: "https://claude.ai/public/artifacts/a93e556a-6719-44be-b269-a19658463d47",
+        },
+        {
+          label: "Architecture deck",
+          url: "./artifacts/attest/MD-3%20(1).pptx",
+        },
+        {
+          label: "Standalone prototype",
+          url: "./artifacts/attest/Attest%20Compliance%20Prototype%20_standalone_%20(1).html",
+        },
+      ],
       detail: {
         label: "AI compliance systems",
         metricLabel: "Designed Impact",
@@ -222,6 +242,12 @@ window.PORTFOLIO_CONTENT = {
       title: "InboxIQ",
       summary:
         "Built an AI life operating system for MBA overwhelm, turning chaotic email across job search, school, networking, and personal admin into one structured decision layer.",
+      links: [
+        {
+          label: "GitHub repo",
+          url: "https://github.com/anshul570/job-search-dashboard",
+        },
+      ],
       detail: {
         label: "Personal AI systems",
         metricLabel: "Key Metrics",
@@ -286,6 +312,12 @@ window.PORTFOLIO_CONTENT = {
         label: "Project repo",
         url: "https://github.com/anshul570/realtime_sports_commentary_analytics",
       },
+      links: [
+        {
+          label: "GitHub repo",
+          url: "https://github.com/anshul570/realtime_sports_commentary_analytics",
+        },
+      ],
       detail: {
         label: "Real-time AI systems",
         metricLabel: "Architecture",
@@ -339,6 +371,20 @@ window.PORTFOLIO_CONTENT = {
       title: "Trace.Space: #TraceTheRants",
       summary:
         "Designed a zero-budget growth campaign and interactive demo for an AI-native systems engineering startup trying to reach skeptical technical buyers.",
+      links: [
+        {
+          label: "Problem brief",
+          url: "./artifacts/trace-space/Trace.Space%20Prompt%20(2).pdf",
+        },
+        {
+          label: "Campaign deck",
+          url: "./artifacts/trace-space/Trace_Space_Trace_The_Rants.pptx",
+        },
+        {
+          label: "Interactive demo",
+          url: "./artifacts/trace-space/tracespace_demo_v5_2.html",
+        },
+      ],
       detail: {
         label: "Founder challenge",
         metricLabel: "Campaign Design",
@@ -527,6 +573,12 @@ window.PORTFOLIO_CONTENT = {
         label: "Research document",
         url: "https://docs.google.com/document/d/1F2XG6tKzB2VblrTT3wAvJ4RuSm_6yh4j/edit",
       },
+      links: [
+        {
+          label: "Research document",
+          url: "https://docs.google.com/document/d/1F2XG6tKzB2VblrTT3wAvJ4RuSm_6yh4j/edit",
+        },
+      ],
       detail: {
         label: "Retail AI strategy",
         metricLabel: "Projected Impact",

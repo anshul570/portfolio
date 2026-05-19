@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trace.Space — Outreach Demo</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --bg:#08080d; --s1:#0f0f16; --s2:#16161f;
+    --b1:rgba(255,255,255,0.06); --b2:rgba(255,255,255,0.11);
+    --text:#ededf2; --m1:#5a5a70; --m2:#9090a8;
+    --ac:#7c6dfa; --acl:rgba(124,109,250,0.1); --acm:rgba(124,109,250,0.18);
+    --red:#f05252; --redl:rgba(240,82,82,0.1);
+    --green:#10d9a0; --greenl:rgba(16,217,160,0.1);
+    --or:#f59e42; --li:#4a9eed;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-size:14px;line-height:1.5;min-height:100vh}
+  body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(rgba(124,109,250,0.04) 1px,transparent 1px);background-size:28px 28px;pointer-events:none;z-index:0}
+  .app{position:relative;z-index:1}
+
+  /* NAV */
+  nav{background:rgba(8,8,13,0.9);border-bottom:1px solid var(--b1);backdrop-filter:blur(16px);padding:0 32px;display:flex;align-items:stretch;height:52px;position:sticky;top:0;z-index:100}
+  .logo{display:flex;align-items:center;gap:8px;font-weight:700;font-size:14px;letter-spacing:-0.02em;margin-right:24px;padding-right:24px;border-right:1px solid var(--b1)}
+  .logo-dot{width:7px;height:7px;border-radius:50%;background:var(--ac);box-shadow:0 0 8px rgba(124,109,250,0.4)}
+  .steps{display:flex;align-items:center;flex:1}
+  .step{display:flex;align-items:center;gap:8px;padding:0 16px;height:100%;cursor:pointer;border-bottom:2px solid transparent;color:var(--m1);font-size:13px;font-weight:500;transition:all 0.2s;white-space:nowrap;user-select:none}
+  .step:hover{color:var(--m2)}
+  .step.active{color:var(--ac);border-bottom-color:var(--ac)}
+  .step.done{color:var(--green)}
+  .sn{width:19px;height:19px;border-radius:50%;background:var(--s2);border:1px solid var(--b2);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--m1);flex-shrink:0;transition:all 0.2s}
+  .step.active .sn{background:var(--ac);border-color:var(--ac);color:#fff;box-shadow:0 0 10px rgba(124,109,250,0.35)}
+  .step.done .sn{background:var(--green);border-color:var(--green);color:var(--bg)}
+  .sep{color:var(--b2);font-size:16px;padding:0 2px}
+  .nr{margin-left:auto;display:flex;align-items:center;gap:10px}
+  .lpill{display:flex;align-items:center;gap:6px;background:var(--redl);border:1px solid rgba(240,82,82,0.2);border-radius:20px;padding:4px 11px;font-size:11px;font-weight:600;color:var(--red);font-family:'JetBrains Mono',monospace}
+  .ld{width:6px;height:6px;border-radius:50%;background:var(--red);animation:blink 1.4s infinite}
+  @keyframes blink{0%,100%{opacity:1}50%{opacity:0.2}}
+  .cbtn{display:flex;align-items:center;gap:5px;border:1px solid var(--b2);border-radius:7px;padding:5px 11px;cursor:pointer;font-size:12px;font-weight:500;color:var(--m2);background:var(--s1);transition:all 0.15s}
+  .cbtn:hover{border-color:var(--ac);color:var(--ac)}
+
+  /* SCREENS */
+  .screen{display:none;min-height:calc(100vh - 52px)}
+  .screen.active{display:block}
+  .lay{max-width:820px;margin:0 auto;padding:40px 32px}
+
+  .ey{font-size:10px;font-weight:600;letter-spacing:0.14em;color:var(--ac);text-transform:uppercase;margin-bottom:5px;font-family:'JetBrains Mono',monospace}
+  .pt{font-size:24px;font-weight:700;letter-spacing:-0.03em;margin-bottom:5px}
+  .ps{color:var(--m2);font-size:13px;margin-bottom:28px;line-height:1.6;max-width:580px}
+
+  .card{background:var(--s1);border:1px solid var(--b2);border-radius:12px;padding:20px}
+  .ctitle{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.12em;color:var(--m1);margin-bottom:12px;font-family:'JetBrains Mono',monospace}
+  .g2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:20px}
+  .g4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
+
+  .nbtn{display:inline-flex;align-items:center;gap:7px;background:var(--ac);color:#fff;border:none;border-radius:8px;padding:10px 20px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;transition:all 0.15s;box-shadow:0 0 20px rgba(124,109,250,0.2)}
+  .nbtn:hover{background:#6b5ce0;transform:translateY(-1px)}
+
+  /* S1 */
+  .sr{display:flex;align-items:center;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--b1)}
+  .sr:last-child{border-bottom:none;padding-bottom:0}
+  .sn2{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--ac);font-weight:500}
+  .ss{font-size:11px;color:var(--m1);font-family:'JetBrains Mono',monospace}
+
+  .ht{background:var(--s2);border:1px solid var(--b1);border-radius:9px;padding:12px 14px;display:flex;flex-direction:column;gap:6px;transition:all 0.15s;cursor:pointer}
+  .ht:hover{border-color:var(--ac);background:rgba(124,109,250,0.06);}
+  .ht-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+  .ht-sub{font-size:10px;font-family:'JetBrains Mono',monospace;color:var(--ac);font-weight:600;margin-bottom:2px}
+  .ht-title{font-size:13px;font-weight:500;color:var(--text);line-height:1.4;flex:1}
+  .ht-meta{display:flex;gap:14px}
+  .ht-s{font-size:11px;color:var(--m1);font-family:'JetBrains Mono',monospace}
+
+  .kwrap{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+  .kw{display:flex;align-items:center;gap:4px;background:var(--acl);border:1px solid var(--acm);border-radius:5px;padding:3px 8px;font-size:11px;font-weight:500;color:var(--ac);font-family:'JetBrains Mono',monospace}
+  .kr{cursor:pointer;color:var(--m1);font-size:13px;line-height:1;transition:color 0.15s}
+  .kr:hover{color:var(--red)}
+
+  .ar{display:flex;gap:7px}
+  .ai{flex:1;border:1px solid var(--b2);border-radius:6px;padding:6px 10px;font-size:12px;font-family:'JetBrains Mono',monospace;color:var(--text);background:var(--s2);outline:none;transition:border-color 0.15s}
+  .ai:focus{border-color:var(--ac)}
+  .ai::placeholder{color:var(--m1)}
+  .ab{background:var(--acl);border:1px solid var(--acm);border-radius:6px;padding:6px 12px;font-size:12px;font-weight:600;color:var(--ac);cursor:pointer;font-family:'Inter',sans-serif;transition:all 0.15s;white-space:nowrap}
+  .ab:hover{background:var(--ac);color:#fff}
+
+  /* S2 */
+  .lbadge{display:inline-flex;align-items:center;gap:7px;background:rgba(232,69,69,0.08);border:1px solid rgba(232,69,69,0.18);border-radius:7px;padding:7px 13px;margin-bottom:18px;font-size:12px;color:var(--red);font-weight:600}
+  .ldot{width:6px;height:6px;border-radius:50%;background:var(--red)}
+
+  .acard{background:var(--s1);border:1px solid rgba(240,82,82,0.3);border-radius:12px;overflow:hidden;margin-bottom:22px;animation:pop 0.3s ease;box-shadow:0 0 30px rgba(240,82,82,0.06)}
+  @keyframes pop{from{opacity:0;transform:scale(0.97)}to{opacity:1;transform:scale(1)}}
+  .abar{background:var(--red);padding:9px 18px;display:flex;align-items:center;justify-content:space-between}
+  .albl{color:#fff;font-size:11px;font-weight:700;letter-spacing:0.06em;font-family:'JetBrains Mono',monospace}
+  .ascore{background:#fff;color:var(--red);font-weight:800;font-size:12px;border-radius:5px;padding:2px 9px;font-family:'JetBrains Mono',monospace}
+  .abody{padding:20px}
+  .tsrc{font-size:11px;font-family:'JetBrains Mono',monospace;color:var(--m1);margin-bottom:7px}
+  .ttitle{font-size:17px;font-weight:600;line-height:1.4;margin-bottom:12px}
+  .ttitle mark{background:rgba(240,82,82,0.14);color:var(--red);border-radius:3px;padding:0 3px}
+  .tquote{font-size:13px;color:var(--m2);line-height:1.6;border-left:2px solid var(--ac);padding-left:13px;margin-bottom:20px;font-style:italic}
+  .stats{display:flex;gap:24px;margin-bottom:20px}
+  .si{display:flex;flex-direction:column;gap:2px}
+  .sv{font-size:22px;font-weight:700;font-family:'JetBrains Mono',monospace;line-height:1}
+  .sv.red{color:var(--red)}
+  .sk{font-size:10px;color:var(--m1);text-transform:uppercase;letter-spacing:0.06em}
+  .sbar-row{display:flex;align-items:center;gap:10px;margin-bottom:7px}
+  .sbar-row:last-child{margin-bottom:0}
+  .sbar-lbl{font-size:11px;color:var(--m2);min-width:120px}
+  .sbar-track{flex:1;height:4px;background:var(--s2);border-radius:2px;overflow:hidden}
+  .sbar-fill{height:100%;border-radius:2px}
+  .sbar-n{font-size:11px;font-family:'JetBrains Mono',monospace;font-weight:600;min-width:26px;text-align:right}
+
+  /* S3 */
+  .rg{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px}
+  .rc{background:var(--s1);border:1px solid var(--b2);border-radius:12px;overflow:hidden}
+  .rh{padding:11px 16px;border-bottom:1px solid var(--b1);display:flex;align-items:center;gap:7px;font-size:12px;font-weight:600;background:var(--s2)}
+  .rdot{width:18px;height:18px;background:#ff4500;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;color:#fff;font-weight:800;flex-shrink:0}
+  .lisq{width:18px;height:18px;background:var(--li);border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:9px;color:#fff;font-weight:800;flex-shrink:0}
+  .rb{padding:16px;font-size:13px;line-height:1.75;color:var(--m2)}
+  .rb strong{color:var(--text);font-weight:600}
+  .rb .lk{color:var(--ac);font-weight:500}
+  .rb .ht2{color:var(--li);font-size:12px}
+  .rfooter{margin:0 16px 16px;background:var(--greenl);border:1px solid rgba(16,217,160,0.15);border-radius:7px;padding:8px 12px;font-size:11px;color:var(--green);font-weight:600}
+  .solvebox{margin:0 16px 16px;background:var(--acl);border:1px solid var(--acm);border-radius:7px;padding:12px 14px}
+  .solvetitle{font-size:10px;font-weight:700;color:var(--ac);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:8px;font-family:'JetBrains Mono',monospace}
+  .solverow{display:flex;gap:7px;font-size:12px;color:var(--m2);line-height:1.5;margin-bottom:5px}
+  .solverow:last-child{margin-bottom:0}
+  .si2{flex-shrink:0;color:var(--ac);font-weight:700}
+
+  /* S4 */
+  .flow{display:flex;align-items:center;background:var(--s1);border:1px solid var(--b2);border-radius:12px;padding:20px 22px;margin-bottom:18px;overflow-x:auto}
+  .fn{display:flex;flex-direction:column;align-items:center;gap:6px;min-width:95px}
+  .fi{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px}
+  .fl{font-size:11px;font-weight:600;text-align:center;line-height:1.3}
+  .fa{font-size:18px;color:var(--b2);margin:0 4px;padding-bottom:16px;flex-shrink:0}
+  .mc{background:var(--s1);border:1px solid var(--b2);border-radius:12px;padding:20px 16px;text-align:center}
+  .mv{font-size:28px;font-weight:800;font-family:'JetBrains Mono',monospace;letter-spacing:-0.02em;margin-bottom:5px}
+  .ml{font-size:12px;color:var(--m2);font-weight:500}
+  .ms{font-size:11px;color:var(--m1);margin-top:2px}
+  .sum{background:linear-gradient(135deg,var(--s2),rgba(124,109,250,0.1));border:1px solid var(--acm);border-radius:12px;padding:24px 28px;display:flex;align-items:center;justify-content:space-between;gap:18px;box-shadow:0 0 40px rgba(124,109,250,0.06)}
+  .st{font-size:15px;font-weight:600;line-height:1.5;letter-spacing:-0.01em}
+  .ss2{font-size:12px;color:var(--m2);margin-top:4px}
+  .rbtn{background:var(--acl);border:1px solid var(--acm);color:var(--ac);border-radius:7px;padding:9px 16px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;transition:all 0.15s;white-space:nowrap}
+  .rbtn:hover{background:var(--ac);color:#fff}
+
+  /* MODAL */
+  .mo{position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:200;display:none;align-items:center;justify-content:center;backdrop-filter:blur(8px)}
+  .mo.open{display:flex}
+  .md{background:var(--s1);border:1px solid var(--b2);border-radius:14px;width:520px;max-height:80vh;overflow-y:auto;box-shadow:0 24px 80px rgba(0,0,0,0.6);animation:min 0.25s ease}
+  @keyframes min{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+  .mh{padding:18px 22px;border-bottom:1px solid var(--b1);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:var(--s1);z-index:1}
+  .mt{font-size:15px;font-weight:700}
+  .mc2{cursor:pointer;font-size:20px;color:var(--m1);transition:color 0.15s}
+  .mc2:hover{color:var(--text)}
+  .mb{padding:22px}
+  .ms2{margin-bottom:24px}
+  .ms2:last-child{margin-bottom:0}
+  .mlbl{font-size:10px;font-weight:700;color:var(--m1);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:10px;font-family:'JetBrains Mono',monospace}
+  .ti{display:flex;align-items:flex-start;gap:9px;padding:8px 0;border-bottom:1px solid var(--b1)}
+  .ti:last-child{border-bottom:none}
+  .titxt{flex:1;font-size:12px;color:var(--m2);line-height:1.4}
+  .tisub{font-family:'JetBrains Mono',monospace;color:var(--ac);font-size:10px;margin-bottom:2px}
+  .tirm{cursor:pointer;color:var(--m1);font-size:16px;flex-shrink:0;line-height:1.3;transition:color 0.15s}
+  .tirm:hover{color:var(--red)}
+  .tinp{border:1px solid var(--b2);border-radius:6px;padding:7px 10px;font-size:12px;font-family:'Inter',sans-serif;color:var(--text);background:var(--s2);outline:none;transition:border-color 0.15s}
+  .tinp:focus{border-color:var(--ac)}
+  .tinp::placeholder{color:var(--m1)}
+
+  ::-webkit-scrollbar{width:4px}
+  ::-webkit-scrollbar-track{background:transparent}
+  ::-webkit-scrollbar-thumb{background:var(--b2);border-radius:2px}
+</style>
+</head>
+<body>
+<div class="app">
+
+<nav>
+  <div class="logo"><div class="logo-dot"></div>Trace.Space</div>
+  <div class="steps">
+    <div class="step active" id="step1" onclick="goTo(1)"><div class="sn" id="sn1">1</div>Listen</div>
+    <div class="sep">›</div>
+    <div class="step" id="step2" onclick="goTo(2)"><div class="sn" id="sn2">2</div>Detect</div>
+    <div class="sep">›</div>
+    <div class="step" id="step3" onclick="goTo(3)"><div class="sn" id="sn3">3</div>Respond</div>
+    <div class="sep">›</div>
+    <div class="step" id="step4" onclick="goTo(4)"><div class="sn" id="sn4">4</div>Result</div>
+  </div>
+  <div class="nr">
+    <div class="cbtn" onclick="openModal()">⚙ Customize</div>
+    <div class="lpill"><div class="ld"></div>LIVE</div>
+  </div>
+</nav>
+
+<!-- S1: LISTEN -->
+<div class="screen active" id="screen1">
+  <div class="lay">
+    <div class="ey">Step 1</div>
+    <div class="pt">Agent monitors Reddit 24/7</div>
+    <div class="ps">Watching where systems engineers speak honestly — firing an alert only when a high-pain thread appears.</div>
+
+    <div class="g2">
+      <div class="card">
+        <div class="ctitle">Communities tracked</div>
+        <div class="sr"><span class="sn2">r/systems_engineering</span><span class="ss">16k</span></div>
+        <div class="sr"><span class="sn2">r/aerospace</span><span class="ss">284k</span></div>
+        <div class="sr"><span class="sn2">r/MBSE</span><span class="ss">4.2k</span></div>
+        <div class="sr"><span class="sn2">r/embedded</span><span class="ss">89k</span></div>
+        <div class="sr"><span class="sn2">r/robotics</span><span class="ss">143k</span></div>
+        <div class="sr"><span class="sn2">r/AutonomousVehicles</span><span class="ss">52k</span></div>
+      </div>
+
+      <div class="card">
+        <div class="ctitle">Alert keywords</div>
+        <div class="kwrap" id="kw-display"></div>
+        <div class="ar">
+          <input class="ai" id="kw-input" placeholder="Add keyword..." onkeydown="if(event.key==='Enter')addKw()">
+          <button class="ab" onclick="addKw()">+ Add</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:26px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+        <div class="ctitle" style="margin-bottom:0;">🔥 Hot threads — need a reply</div>
+      </div>
+      <div id="ht-display" style="display:flex;flex-direction:column;gap:8px;"></div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--b1);display:flex;gap:7px;">
+        <input class="ai" id="ht-sub" placeholder="r/subreddit" style="max-width:140px;">
+        <input class="ai" id="ht-title" placeholder="Thread title...">
+        <input class="ai" id="ht-ago" placeholder="2h ago" style="max-width:80px;">
+        <button class="ab" onclick="addHT()">+ Add</button>
+      </div>
+    </div>
+
+    <div style="font-size:12px;color:var(--m1);font-family:'JetBrains Mono',monospace;padding-top:4px;">↑ Click any thread above to investigate</div>
+  </div>
+</div>
+
+<!-- S2: DETECT -->
+<div class="screen" id="screen2">
+  <div class="lay">
+    <div class="ey">Step 2</div>
+    <div class="pt">Thread flagged</div>
+    <div class="ps">Agent scores by keyword density + pain language. Only the highest-scoring threads surface.</div>
+
+    <div class="lbadge"><div class="ldot"></div>Lucid Motors — 40,000+ requirements, ISO 26262 safety certification</div>
+
+    <div class="acard">
+      <div class="abar">
+        <div class="albl">🚨 Slack alert fired</div>
+        <div class="ascore">Pain Score 8.9 / 10</div>
+      </div>
+      <div class="abody">
+        <div class="tsrc">r/systems_engineering · 45 min ago · 9 upvotes · 17 comments</div>
+        <div class="ttitle" id="detected-title">
+          Lucid-scale EV cert prep — 3 engineers just spent 3 weeks in <mark>DOORS</mark> manually checking <mark>trace links</mark>. Audit passed but this can't be the way
+        </div>
+        <div class="tquote">
+          "We build electric vehicles. Our braking system alone has 4,000 requirements. Before every NHTSA submission we manually verify every single trace link. It passed this time — but one missed link and we fail certification. Months of delay. Millions lost. There has to be a better way in 2026..."
+        </div>
+
+        <div class="stats">
+          <div class="si"><div class="sv red">8.9</div><div class="sk">Pain Score</div></div>
+          <div class="si"><div class="sv">3</div><div class="sk">Keywords hit</div></div>
+          <div class="si"><div class="sv">14</div><div class="sk">Comments</div></div>
+        </div>
+
+        <div class="sbar-row"><span class="sbar-lbl">Keyword density</span><div class="sbar-track"><div class="sbar-fill" style="width:92%;background:var(--red)"></div></div><span class="sbar-n" style="color:var(--red)">9.2</span></div>
+        <div class="sbar-row"><span class="sbar-lbl">Pain language</span><div class="sbar-track"><div class="sbar-fill" style="width:88%;background:var(--red)"></div></div><span class="sbar-n" style="color:var(--red)">8.8</span></div>
+        <div class="sbar-row"><span class="sbar-lbl">Subreddit match</span><div class="sbar-track"><div class="sbar-fill" style="width:100%;background:var(--green)"></div></div><span class="sbar-n" style="color:var(--green)">10</span></div>
+      </div>
+    </div>
+
+    <button class="nbtn" onclick="goTo(3)">See response →</button>
+  </div>
+</div>
+
+<!-- S3: RESPOND -->
+<div class="screen" id="screen3">
+  <div class="lay">
+    <div class="ey">Step 3</div>
+    <div class="pt">Human replies. LinkedIn goes live.</div>
+    <div class="ps">Like a building inspection — someone must manually verify 40,000 safety rules before the inspector arrives. That's 3 engineers, 3 weeks, every time. Space Agent does it in minutes.</div>
+
+    <div class="rg">
+      <div class="rc">
+        <div class="rh"><div class="rdot">R</div>Reddit — helpful reply, no pitch</div>
+        <div class="rb">
+          We've been through this.<br><br>
+          Two things that actually helped:<br><br>
+          <strong>1.</strong> Check safety-critical items first — they're what fails audits.<br><br>
+          <strong>2.</strong> Check continuously, not in a pre-deadline panic. The audit should feel like a formality.<br><br>
+          More on how teams cut prep from weeks to days:<br>
+          <span class="lk">→ linkedin.com/company/trace-space</span>
+        </div>
+        <div class="rfooter">✓ Helpful &nbsp;·&nbsp; No jargon &nbsp;·&nbsp; One link at the end</div>
+      </div>
+
+      <div class="rc">
+        <div class="rh"><div class="lisq">in</div>LinkedIn — Janis Vavere · same day</div>
+        <div class="rb">
+          Building a car, robot, or satellite isn't the hard part.<br><br>
+          <strong>Proving it's safe is.</strong><br><br>
+          3 engineers. 40,000 safety rules. 3 weeks of manual checks. Every certification cycle.<br><br>
+          One missed rule = failed inspection = months of delay.<br><br>
+          <span class="ht2">#SystemsEngineering #ElectricVehicles #Aerospace</span>
+        </div>
+        <div class="solvebox">
+          <div class="solvetitle">How Space Agent fixes this</div>
+          <div class="solverow"><span class="si2">→</span>Checks 40,000 rules in minutes — not weeks</div>
+          <div class="solverow"><span class="si2">→</span>Spots broken links before the inspector does</div>
+          <div class="solverow"><span class="si2">→</span>Engineers focus on building, not paperwork</div>
+        </div>
+        <div class="rfooter">✓ Engineers click Reddit link → see exactly how Trace.Space helps</div>
+      </div>
+    </div>
+
+    <button class="nbtn" onclick="goTo(4)">See the result →</button>
+  </div>
+</div>
+
+<!-- S4: RESULT -->
+<div class="screen" id="screen4">
+  <div class="lay">
+    <div class="ey">Step 4</div>
+    <div class="pt">Reddit → LinkedIn → Demo</div>
+    <div class="ps">One replied thread creates a full pipeline. Zero paid spend.</div>
+
+    <div class="flow" style="margin-bottom:18px;">
+      <div class="fn"><div class="fi" style="background:rgba(240,82,82,0.1)">🔍</div><div class="fl">Thread<br>detected</div></div>
+      <div class="fa">›</div>
+      <div class="fn"><div class="fi" style="background:rgba(245,158,66,0.1)">💬</div><div class="fl">Human<br>replies</div></div>
+      <div class="fa">›</div>
+      <div class="fn"><div class="fi" style="background:rgba(74,158,237,0.1)">📢</div><div class="fl">LinkedIn<br>goes live</div></div>
+      <div class="fa">›</div>
+      <div class="fn"><div class="fi" style="background:rgba(16,217,160,0.1)">📈</div><div class="fl">Engineers<br>follow</div></div>
+      <div class="fa">›</div>
+      <div class="fn"><div class="fi" style="background:var(--acl)">🎯</div><div class="fl">Demo<br>request</div></div>
+    </div>
+
+    <div class="g4" style="margin-bottom:18px;">
+      <div class="mc"><div class="mv">6</div><div class="ml">Threads replied</div><div class="ms">Week 1</div></div>
+      <div class="mc"><div class="mv">280</div><div class="ml">Reddit → LinkedIn</div><div class="ms">Organic clicks</div></div>
+      <div class="mc"><div class="mv">10k+</div><div class="ml">Impressions</div><div class="ms">Engineers only</div></div>
+      <div class="mc"><div class="mv" style="color:var(--ac)">5</div><div class="ml">Demo requests</div><div class="ms">30 days</div></div>
+    </div>
+
+    <div class="sum">
+      <div>
+        <div class="st">"Show up where engineers already are — and actually help them."</div>
+        <div class="ss2">Reddit is where they trust. LinkedIn is where they decide.</div>
+      </div>
+      <button class="rbtn" onclick="goTo(1)">↩ Restart</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="mo" id="mo" onclick="if(event.target===this)closeModal()">
+  <div class="md">
+    <div class="mh"><div class="mt">⚙ Customize</div><div class="mc2" onclick="closeModal()">×</div></div>
+    <div class="mb">
+      <div class="ms2">
+        <div class="mlbl">Keywords</div>
+        <div class="kwrap" id="kw-modal"></div>
+        <div class="ar">
+          <input class="ai" id="kw-m-input" placeholder="Add keyword..." onkeydown="if(event.key==='Enter')addKwM()">
+          <button class="ab" onclick="addKwM()">+ Add</button>
+        </div>
+      </div>
+      <div class="ms2">
+        <div class="mlbl">Hot threads</div>
+        <div id="modal-threads"></div>
+        <div style="display:grid;grid-template-columns:130px 1fr auto;gap:7px;margin-top:10px;">
+          <input class="tinp" id="m-sub" placeholder="r/subreddit">
+          <input class="tinp" id="m-title" placeholder="Thread title...">
+          <button class="ab" onclick="addTM()">+ Add</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+<script>
+  const kws=['IBM DOORS','traceability','ISO 26262','requirements management','Jama Connect','certification audit','MBSE tools','ASPICE'];
+  const hts=[
+    {sub:'r/systems_engineering',title:'Lucid-scale EV cert prep — 3 engineers just spent 3 weeks in DOORS manually checking trace links. Audit passed but this can\'t be the way',up:9,cm:17,ago:'45m',heat:'🔴'},
+    {sub:'r/MBSE',title:'Anyone happy with Jama at 20k+ requirements? Looking for alternatives',up:5,cm:9,ago:'3h',heat:'🟠'},
+    {sub:'r/aerospace',title:'DO-178C audit — trace link coverage across 30k requirements, any advice?',up:8,cm:11,ago:'5h',heat:'🟠'},
+    {sub:'r/systems_engineering',title:'IBM DOORS scripts from someone who left — audit in 8 weeks',up:3,cm:6,ago:'1d',heat:'🟡'},
+  ];
+
+  function rKws(){
+    ['kw-display','kw-modal'].forEach(id=>{
+      const el=document.getElementById(id);
+      if(!el)return;
+      el.innerHTML=kws.map((k,i)=>`<div class="kw">${k}<span class="kr" onclick="rmKw(${i})">×</span></div>`).join('');
+    });
+  }
+  function addKw(){const i=document.getElementById('kw-input');const v=i.value.trim();if(v&&!kws.includes(v)){kws.push(v);rKws()}i.value=''}
+  function addKwM(){const i=document.getElementById('kw-m-input');const v=i.value.trim();if(v&&!kws.includes(v)){kws.push(v);rKws()}i.value=''}
+  function rmKw(i){kws.splice(i,1);rKws()}
+
+  function selectThread(i){
+    // update detected screen with clicked thread
+    let title=hts[i].title;
+    kws.forEach(k=>{const r=new RegExp(`(${k.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')})`, 'gi');title=title.replace(r,'<mark>$1</mark>')});
+    const dt=document.getElementById('detected-title');
+    if(dt)dt.innerHTML=title;
+    const dq=document.getElementById('detected-quote');
+    if(dq&&hts[i].quote)dq.textContent=hts[i].quote;
+    goTo(2);
+  }
+
+  function rHTs(){
+    const el=document.getElementById('ht-display');
+    if(el)el.innerHTML=hts.map((t,i)=>`
+      <div class="ht" onclick="selectThread(${i})" style="cursor:pointer;" title="Click to see detection">
+        <div class="ht-top"><div style="flex:1"><div class="ht-sub">${t.sub}</div><div class="ht-title">${t.title}</div></div><span>${t.heat}</span></div>
+        <div class="ht-meta"><span class="ht-s">▲${t.up}</span><span class="ht-s">💬${t.cm}</span><span class="ht-s">🕐${t.ago} ago</span><span class="ht-s" style="color:var(--ac);margin-left:auto;">Investigate →</span></div>
+      </div>`).join('');
+    const ml=document.getElementById('modal-threads');
+    if(ml)ml.innerHTML=hts.map((t,i)=>`
+      <div class="ti"><div class="titxt"><div class="tisub">${t.sub}</div>${t.title}</div><span class="tirm" onclick="rmHT(${i})">×</span></div>`).join('');
+    if(hts.length>0){
+      let title=hts[0].title;
+      kws.forEach(k=>{const r=new RegExp(`(${k.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')})`, 'gi');title=title.replace(r,'<mark>$1</mark>')});
+      const dt=document.getElementById('detected-title');
+      if(dt)dt.innerHTML=title;
+    }
+  }
+
+  function addHT(){
+    const sub=document.getElementById('ht-sub').value.trim()||'r/systems_engineering';
+    const title=document.getElementById('ht-title').value.trim();
+    const ago=document.getElementById('ht-ago').value.trim()||'just now';
+    if(title){hts.unshift({sub,title,up:1,cm:0,ago,heat:'🔴'});rHTs();
+      ['ht-sub','ht-title','ht-ago'].forEach(id=>document.getElementById(id).value='');
+    }
+  }
+  function addTM(){
+    const sub=document.getElementById('m-sub').value.trim()||'r/systems_engineering';
+    const title=document.getElementById('m-title').value.trim();
+    if(title){hts.unshift({sub,title,up:1,cm:0,ago:'just now',heat:'🔴'});rHTs();
+      document.getElementById('m-sub').value='';document.getElementById('m-title').value='';
+    }
+  }
+  function rmHT(i){hts.splice(i,1);rHTs()}
+
+  function openModal(){document.getElementById('mo').classList.add('open')}
+  function closeModal(){document.getElementById('mo').classList.remove('open')}
+
+  function goTo(n){
+    document.querySelectorAll('.screen').forEach((s,i)=>s.classList.toggle('active',i+1===n));
+    [1,2,3,4].forEach(num=>{
+      const step=document.getElementById('step'+num);
+      const sn=document.getElementById('sn'+num);
+      step.classList.remove('active','done');
+      if(num===n){step.classList.add('active');sn.textContent=num}
+      else if(num<n){step.classList.add('done');sn.textContent='✓'}
+      else{sn.textContent=num}
+    });
+    window.scrollTo(0,0);
+  }
+
+  rKws(); rHTs();
+</script>
+</body>
+</html>
