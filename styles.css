@@ -371,6 +371,8 @@ button {
   line-height: 1.4;
   border-radius: var(--radius-sm);
   transition: border-color 160ms ease, transform 160ms ease, background 160ms ease;
+  display: grid;
+  gap: 4px;
 }
 
 .hero-chat-preview-prompt:hover,
@@ -378,6 +380,11 @@ button {
   border-color: rgba(111, 225, 210, 0.4);
   background: rgba(21, 35, 44, 1);
   transform: translateY(-1px);
+}
+
+.hero-chat-preview-prompt-subtle {
+  color: rgba(238, 244, 247, 0.54);
+  font-size: 0.78rem;
 }
 
 .band {
