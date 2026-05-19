@@ -337,6 +337,29 @@ button {
   font-size: 0.88rem;
 }
 
+.hero-chat-preview-hint {
+  margin: 2px 0 0;
+  color: rgba(238, 244, 247, 0.72);
+  font-size: 0.79rem;
+}
+
+.hero-chat-preview-topics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.hero-chat-preview-topics span {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(207, 225, 232, 0.1);
+  background: rgba(15, 25, 32, 0.9);
+  color: rgba(238, 244, 247, 0.82);
+  font-size: 0.77rem;
+}
+
 .hero-chat-preview-prompt {
   text-align: left;
   border: 1px solid rgba(111, 225, 210, 0.22);
