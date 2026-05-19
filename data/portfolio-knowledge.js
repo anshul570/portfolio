@@ -56,6 +56,14 @@ const portfolioKnowledge = [
       "BatSignal is a real-time sports commentary analytics prototype exploring how streaming systems, low-latency LLM inference, and live dashboards can work together in sports and entertainment. The architecture includes live commentary ingestion, Kafka for streaming, an LLM layer for real-time enrichment, analytics persistence, an API layer, and dashboard updates via WebSockets. It was built quickly as a team prototype and shows Anshul's interest in real-time AI systems and product experiences.",
   },
   {
+    id: "trace-space",
+    title: "Trace.Space growth strategy and interactive demo",
+    url: "./project.html?slug=trace-space",
+    tags: ["trace.space", "growth", "marketing", "startup", "systems engineering", "demo", "strategy"],
+    text:
+      "For Trace.Space, Anshul worked on a zero-budget campaign concept called #TraceTheRants aimed at helping an AI-native systems-engineering startup break through with skeptical technical buyers. The strategy started from real frustrations voiced by systems engineers in places like Reddit, translated those frustrations into structured requirements and test scenarios, showed how Space Agent could solve them, and invited the community into the conversation. He also helped build an interactive demo that made the response flow tangible instead of leaving it as a marketing idea on slides.",
+  },
+  {
     id: "portfolio-chatbot",
     title: "Portfolio website with RAG chatbot",
     url: "./project.html?slug=ask-anshul",
@@ -110,6 +118,30 @@ const portfolioKnowledge = [
     tags: ["skills", "product", "ai", "consulting", "leadership"],
     text:
       "Anshul's strongest themes include product and strategy, identity and platform systems, AI systems, consulting and analytics, and leadership. The recurring capabilities across his portfolio are fraud mitigation, checkout optimization, passkeys and MFA, workflow automation, multi-agent design, research synthesis, competitive positioning, stakeholder management, and structured execution under ambiguity.",
+  },
+  {
+    id: "behavioral-drive",
+    title: "Behavioral story: drive under pressure",
+    url: "./project.html?slug=bot-mitigation",
+    tags: ["behavioral", "drive", "leadership", "pressure", "paypal"],
+    text:
+      "A strong example of how Anshul operates under pressure is the PayPal bot-mitigation rollout. When false positives started blocking legitimate users and leadership considered rolling the solution back, he treated the issue as a top priority, stabilized the system within about a week through rapid tuning and tighter flow targeting, and then pushed the organization to move from reactive flow-by-flow defense to proactive protection across major entry points. That story reflects persistence, judgment, and calm decision-making in high-stakes situations.",
+  },
+  {
+    id: "behavioral-connection",
+    title: "Behavioral story: influencing through evidence",
+    url: "./index.html#experience",
+    tags: ["behavioral", "influence", "connection", "metrics", "paypal", "stakeholder management"],
+    text:
+      "A strong example of Anshul handling disagreement is his work on PayPal latency measurement. When a senior architect believed a long-standing P95 latency metric was accurate, Anshul built an evidence-based case showing it mixed customer-perceived latency with backend work that users never saw. He piloted a new customer-perceived latency metric, validated it collaboratively, and helped roll it out across roughly 80 percent of major customer journeys, improving KPI accuracy by about 65 percent. It shows thoughtful influence, respect for data, and strong stakeholder management.",
+  },
+  {
+    id: "behavioral-growth",
+    title: "Behavioral story: rapid learning and adaptation",
+    url: "./project.html?slug=passkeys-platform",
+    tags: ["behavioral", "growth", "learning", "passkeys", "platform", "paypal"],
+    text:
+      "A strong growth example is Anshul's passkeys work at PayPal. With only about six weeks before the next planning cycle and no prior team experience, he quickly learned the underlying authentication model, device and browser differences, and integration implications. He initially leaned toward a fast checkout-only rollout, then adapted based on architectural feedback and reframed the work as a reusable platform capability. That mix of rapid learning, openness to feedback, and platform thinking is a recurring part of how he works.",
   },
 ];
 

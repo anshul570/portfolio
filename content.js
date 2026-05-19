@@ -334,6 +334,60 @@ window.PORTFOLIO_CONTENT = {
       },
     },
     {
+      slug: "trace-space",
+      tag: "Growth strategy",
+      title: "Trace.Space: #TraceTheRants",
+      summary:
+        "Designed a zero-budget growth campaign and interactive demo for an AI-native systems engineering startup trying to reach skeptical technical buyers.",
+      detail: {
+        label: "Founder challenge",
+        metricLabel: "Campaign Design",
+        headline: "Turning deep technical pain into a credible growth engine for a niche engineering startup",
+        overview:
+          "Trace.Space asked how it could break through to systems engineering leaders who had never heard of agentic requirements management, using a campaign with real viral potential and no paid media budget. Our answer was #TraceTheRants: a content and community strategy that starts with real engineer frustration, translates it into structured systems-engineering artifacts, and demonstrates how Space Agent would solve it credibly.",
+        metrics: [
+          { value: "0-budget", label: "organic-only campaign designed for a lean startup team" },
+          { value: "30 days", label: "success window defined around early traction and ICP response" },
+          { value: "10-100x", label: "product speed claim translated into campaign proof, not generic hype" },
+        ],
+        sections: [
+          {
+            title: "Problem",
+            body:
+              "Trace.Space had a strong product but a quiet voice. Systems engineers and technical leaders were dealing with manual traceability audits, fragmented tooling across DOORS, Jama, Excel, and Jira, and real certification pressure, but Trace.Space had limited reach into those communities. The challenge was to create awareness with a highly skeptical technical ICP that does not respond to generic SaaS marketing.",
+          },
+          {
+            title: "Audience Insight",
+            body:
+              "The core audience included systems engineers, autonomy engineers, engineering managers, chief engineers, and technical startup leaders in aerospace, robotics, autonomous vehicles, and other regulated product environments. LinkedIn matters professionally, but the most candid conversations happen in Reddit communities like r/systems_engineering, r/MBSE, r/aerospace, and r/embedded. That shaped both the message and the channel strategy.",
+          },
+          {
+            title: "Campaign Concept",
+            body:
+              "We built the campaign around a four-step loop: listen to real rants, translate them into clean systems-engineering requirements and test scenarios, demonstrate how Space Agent would handle the pain point, and invite the community to submit their own examples under #TraceTheRants. The strategic goal was to make Trace.Space feel relatable, technically credible, and uplifting toward the craft of systems engineering rather than promotional.",
+          },
+          {
+            title: "Interactive Demo",
+            body:
+              "To make the idea tangible, we built an interactive prototype showing how a monitored Reddit thread could trigger a high-pain alert, get scored, receive a technically credible response draft, and roll into a LinkedIn or community-facing content loop. That helped connect the campaign story back to product behavior instead of leaving it at the level of marketing slides.",
+          },
+          {
+            title: "Why It Worked",
+            body:
+              "The strength of the idea was that it met the audience where they already were. Instead of inventing a top-down thought-leadership campaign, it used the engineer's own language, real artifacts, and live frustrations as the raw material. That made the campaign feel much closer to community participation and product proof than startup marketing theater.",
+          },
+        ],
+        highlights: [
+          "Grounded the campaign in real systems-engineering pain rather than generic B2B messaging.",
+          "Matched channel strategy to actual audience behavior across LinkedIn and Reddit.",
+          "Built an interactive demo to show how the campaign and product logic could work together.",
+          "Framed success around earned engagement, credible community traction, and one real opportunity within 30 days.",
+        ],
+        outcome:
+          "Trace.Space gave me a chance to work at the intersection of audience research, product positioning, startup growth, and interactive storytelling. It shows how I think when the challenge is not just building a product, but getting the right skeptical technical audience to notice, trust, and share it.",
+      },
+    },
+    {
       slug: "ask-anshul",
       tag: "Portfolio AI",
       title: "Ask Anshul",
