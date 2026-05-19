@@ -17,6 +17,7 @@ const chatOpeners = document.querySelectorAll("[data-open-chat]");
 const chatPrompts = document.querySelectorAll("[data-chat-prompt]");
 let chatBusy = false;
 let pendingHeroQuestion = "";
+let conversationStarted = false;
 
 function renderFeaturedWork() {
   featuredWorkRoot.innerHTML = content.featuredWork
@@ -188,6 +189,14 @@ function setChatBusy(nextBusy) {
   submitButton.textContent = nextBusy ? "Thinking..." : "Ask";
 }
 
+function markConversationStarted() {
+  if (conversationStarted) {
+    return;
+  }
+  conversationStarted = true;
+  chatDrawer.classList.add("has-conversation");
+}
+
 function getApiBase() {
   if (window.location.protocol === "file:") {
     return null;
@@ -202,6 +211,7 @@ async function handleQuestion(question) {
   }
 
   openChat();
+  markConversationStarted();
   appendMessage("user", trimmed);
   chatInput.value = "";
   setChatBusy(true);

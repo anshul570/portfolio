@@ -1333,6 +1333,15 @@ button {
   transform: translateX(0);
 }
 
+.chat-drawer.has-conversation {
+  grid-template-rows: auto minmax(0, 1fr);
+}
+
+.chat-drawer.has-conversation .chat-intro-card,
+.chat-drawer.has-conversation .drawer-prompts {
+  display: none;
+}
+
 .chat-drawer-header {
   display: flex;
   justify-content: space-between;
