@@ -1,7 +1,7 @@
 const { portfolioKnowledge } = require("../data/portfolio-knowledge.js");
 
 const ANTHROPIC_API_KEY = process.env.ANTHROPIC_API_KEY;
-const ANTHROPIC_MODEL = process.env.ANTHROPIC_MODEL || "claude-3-5-haiku-latest";
+const ANTHROPIC_MODEL = process.env.ANTHROPIC_MODEL || "claude-sonnet-4-6";
 
 function normalize(text) {
   return String(text || "")
@@ -138,6 +138,17 @@ async function askClaude(question, docs) {
 
   if (!response.ok) {
     const errorText = await response.text();
+    const modelNotFound =
+      response.status === 404 && /not_found_error|model:/i.test(errorText);
+
+    if (modelNotFound) {
+      return {
+        ...buildFallbackAnswer(question, docs),
+        warning:
+          "Claude was temporarily unavailable because the configured model name was not recognized, so this answer used portfolio retrieval only.",
+      };
+    }
+
     throw new Error(`Anthropic request failed: ${response.status} ${errorText}`);
   }
 

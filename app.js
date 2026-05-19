@@ -16,6 +16,7 @@ const chatClose = document.getElementById("chat-close");
 const chatOpeners = document.querySelectorAll("[data-open-chat]");
 const chatPrompts = document.querySelectorAll("[data-chat-prompt]");
 let chatBusy = false;
+let pendingHeroQuestion = "";
 
 function renderFeaturedWork() {
   featuredWorkRoot.innerHTML = content.featuredWork
@@ -151,6 +152,11 @@ function renderSkills() {
 function appendMessage(role, text, options = {}) {
   const message = document.createElement("article");
   message.className = `chat-message ${role}`;
+  const safeText = String(text)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/\n/g, "<br>");
   const sourcesMarkup =
     role === "assistant" && options.sources?.length
       ? `
@@ -164,7 +170,11 @@ function appendMessage(role, text, options = {}) {
         </div>
       `
       : "";
-  message.innerHTML = `<p>${text}</p>${sourcesMarkup}`;
+  const warningMarkup =
+    role === "assistant" && options.warning
+      ? `<p class="chat-warning">${options.warning}</p>`
+      : "";
+  message.innerHTML = `<p>${safeText}</p>${warningMarkup}${sourcesMarkup}`;
   chatLog.appendChild(message);
   chatLog.scrollTop = chatLog.scrollHeight;
   return message;
@@ -220,12 +230,15 @@ async function handleQuestion(question) {
       throw new Error(payload.detail || payload.error || "The portfolio assistant could not answer that right now.");
     }
 
-    appendMessage("assistant", payload.answer, { sources: payload.sources });
+    appendMessage("assistant", payload.answer, {
+      sources: payload.sources,
+      warning: payload.warning,
+    });
   } catch (error) {
     typingMessage.remove();
     appendMessage(
       "assistant secondary",
-      error.message || "The portfolio assistant is having trouble right now. Please try again in a moment.",
+      "I hit a temporary issue answering that. Try again in a moment, or ask a narrower question about PayPal, passkeys, Google Cloud, or leadership.",
     );
   } finally {
     setChatBusy(false);
@@ -237,12 +250,21 @@ function openChat() {
   chatDrawer.classList.add("is-open");
   chatDrawer.setAttribute("aria-hidden", "false");
   chatOverlay.hidden = false;
+  document.body.classList.add("chat-open");
+  requestAnimationFrame(() => {
+    chatInput.focus();
+    if (pendingHeroQuestion) {
+      chatInput.value = pendingHeroQuestion;
+      pendingHeroQuestion = "";
+    }
+  });
 }
 
 function closeChat() {
   chatDrawer.classList.remove("is-open");
   chatDrawer.setAttribute("aria-hidden", "true");
   chatOverlay.hidden = true;
+  document.body.classList.remove("chat-open");
 }
 
 chatForm.addEventListener("submit", (event) => {
@@ -252,11 +274,11 @@ chatForm.addEventListener("submit", (event) => {
 
 chatOpeners.forEach((button) => {
   button.addEventListener("click", () => {
-    openChat();
-    const prompt = button.dataset.chatPrompt || button.textContent;
+    const prompt = button.dataset.chatPrompt || button.textContent || "";
     if (button.classList.contains("hero-chat-preview-prompt") && prompt) {
-      chatInput.value = prompt.trim();
+      pendingHeroQuestion = prompt.trim();
     }
+    openChat();
   });
 });
 
