@@ -363,16 +363,19 @@ button {
 .hero-chat-preview-prompt {
   text-align: left;
   border: 1px solid rgba(111, 225, 210, 0.22);
-  background: rgba(18, 30, 38, 0.98);
+  background: rgba(14, 24, 31, 0.98);
   color: rgba(238, 244, 247, 0.92);
-  padding: 14px 16px;
+  padding: 12px 14px;
   cursor: pointer;
-  font-size: 0.98rem;
+  font-size: 0.94rem;
   line-height: 1.4;
-  border-radius: var(--radius-sm);
+  border-radius: 14px;
   transition: border-color 160ms ease, transform 160ms ease, background 160ms ease;
-  display: grid;
-  gap: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 58px;
 }
 
 .hero-chat-preview-prompt:hover,
@@ -382,9 +385,14 @@ button {
   transform: translateY(-1px);
 }
 
+.hero-chat-preview-prompt-label {
+  color: rgba(238, 244, 247, 0.9);
+}
+
 .hero-chat-preview-prompt-subtle {
-  color: rgba(238, 244, 247, 0.54);
-  font-size: 0.78rem;
+  color: rgba(238, 244, 247, 0.5);
+  font-size: 0.74rem;
+  white-space: nowrap;
 }
 
 .band {
@@ -1331,6 +1339,16 @@ button {
   background: rgba(5, 10, 14, 0.88);
   color: var(--ink);
   border-radius: 14px;
+}
+
+.chat-form input::placeholder {
+  color: rgba(238, 244, 247, 0.42);
+}
+
+.chat-form input:focus {
+  outline: none;
+  border-color: rgba(111, 225, 210, 0.46);
+  box-shadow: 0 0 0 3px rgba(111, 225, 210, 0.1);
 }
 
 .chat-form input:disabled,

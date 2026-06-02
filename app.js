@@ -16,7 +16,6 @@ const chatClose = document.getElementById("chat-close");
 const chatOpeners = document.querySelectorAll("[data-open-chat]");
 const chatPrompts = document.querySelectorAll("[data-chat-prompt]");
 let chatBusy = false;
-let pendingHeroQuestion = "";
 let conversationStarted = false;
 
 function renderFeaturedWork() {
@@ -262,11 +261,8 @@ function openChat() {
   chatOverlay.hidden = false;
   document.body.classList.add("chat-open");
   requestAnimationFrame(() => {
+    chatInput.value = "";
     chatInput.focus();
-    if (pendingHeroQuestion) {
-      chatInput.value = pendingHeroQuestion;
-      pendingHeroQuestion = "";
-    }
   });
 }
 
@@ -284,9 +280,9 @@ chatForm.addEventListener("submit", (event) => {
 
 chatOpeners.forEach((button) => {
   button.addEventListener("click", () => {
-    const prompt = button.dataset.chatPrompt || button.textContent || "";
-    if (button.classList.contains("hero-chat-preview-prompt") && prompt) {
-      pendingHeroQuestion = prompt.trim();
+    const placeholder = button.dataset.chatPlaceholder;
+    if (placeholder) {
+      chatInput.placeholder = placeholder;
     }
     openChat();
   });
