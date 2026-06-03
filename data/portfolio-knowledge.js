@@ -5,7 +5,7 @@ const portfolioKnowledge = [
     url: "./index.html#story",
     tags: ["profile", "about", "overview", "product", "ai", "strategy"],
     text:
-      "Anshul Shrivastava is a product-focused engineer and Cornell Tech MBA candidate graduating in May 2026. He has more than five years of experience building and scaling identity, authentication, fraud, and checkout systems at PayPal. His work spans platform engineering, customer experience, AI product thinking, and cross-functional execution. He is interested in product, AI, strategy, and high-scale user systems, and is currently open to opportunities.",
+      "Anshul Shrivastava is a product-focused engineer and recent Cornell Tech MBA graduate. He has more than five years of experience building and scaling identity, authentication, fraud, and checkout systems at PayPal. His work spans platform engineering, customer experience, AI product thinking, and cross-functional execution. He is interested in product, AI, strategy, and high-scale user systems, and is currently open to opportunities.",
   },
   {
     id: "paypal-platform-work",
@@ -118,6 +118,38 @@ const portfolioKnowledge = [
     tags: ["skills", "product", "ai", "consulting", "leadership"],
     text:
       "Anshul's strongest themes include product and strategy, identity and platform systems, AI systems, consulting and analytics, and leadership. The recurring capabilities across his portfolio are fraud mitigation, checkout optimization, passkeys and MFA, workflow automation, multi-agent design, research synthesis, competitive positioning, stakeholder management, and structured execution under ambiguity.",
+  },
+  {
+    id: "customer-facing-work",
+    title: "Customer-facing and partner-facing work",
+    url: "./index.html#experience",
+    tags: ["customers", "customer-facing", "partners", "meta", "zettle", "google cloud", "platform"],
+    text:
+      "A useful way to understand Anshul's customer-facing experience is that much of his work has been internal and partner-facing rather than traditional account management. On PayPal's platform team, he worked on issues that affected customers directly across the features his team launched. He worked closely with partner and merchant teams such as Meta and Zettle to diagnose integration issues, reduce friction in real flows, and resolve problems that were impacting end users and business outcomes. More recently, through Cornell Tech and Google Cloud, he advised an external client on compliance automation and faster onboarding. That combination gives him strong B2B, technical, and customer-problem-solving experience even when the interface was through product, engineering, or partner teams rather than a classic customer success title.",
+  },
+  {
+    id: "technical-background",
+    title: "Technical background summary",
+    url: "./index.html#experience",
+    tags: ["technical", "engineering", "computer science", "paypal", "identity", "checkout", "fraud"],
+    text:
+      "Anshul's technical background starts with computer science at BITS Pilani and four years at PayPal as a senior software engineer and project lead on identity and checkout platform work. His portfolio of work includes authentication, fraud mitigation, passkeys, login and checkout flows, platform architecture, experiments, metrics, and cross-functional delivery. A concise way to frame him is as someone who can go deep technically, understand complex systems quickly, and still explain them clearly to product, business, and stakeholder audiences.",
+  },
+  {
+    id: "role-fit-product-solutions",
+    title: "Role fit for product, solutions, and consulting work",
+    url: "./index.html#story",
+    tags: ["role fit", "pm", "product", "solutions engineer", "product specialist", "consulting", "strategy"],
+    text:
+      "Anshul tends to fit best in roles where technical depth meets customer or business impact. That includes product management, AI product roles, product specialist or solutions-oriented roles, consulting, and strategy work around technical systems. The common thread in his background is owning messy end-to-end problems, diagnosing bottlenecks, aligning stakeholders under time pressure, and turning complexity into a working system or clear recommendation. That is why his profile reads well both to product audiences and to consulting or solutions teams looking for someone who can bridge engineering detail and stakeholder outcomes.",
+  },
+  {
+    id: "sequence-style-fit",
+    title: "Fit for technical onboarding and implementation roles",
+    url: "./index.html#story",
+    tags: ["implementation", "onboarding", "solutions", "customer onboarding", "enterprise", "platform", "sequence"],
+    text:
+      "For technical onboarding or implementation roles, Anshul's strongest angle is that he has repeatedly taken complex, messy requirements and mapped them into clean technical execution. His Google Cloud compliance work is especially relevant because it is fundamentally about helping enterprise customers get compliant and onboarded faster through better workflows. His PayPal experience is also relevant because he owned high-stakes platform flows end to end, worked across cross-functional teams, and solved real customer friction in production systems. That makes him credible in roles that sit between product, engineering, customer understanding, and implementation.",
   },
   {
     id: "behavioral-drive",
