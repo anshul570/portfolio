@@ -18,6 +18,10 @@ const chatPrompts = document.querySelectorAll("[data-chat-prompt]");
 let chatBusy = false;
 let conversationStarted = false;
 
+function captureAnalytics(eventName, properties = {}) {
+  window.portfolioAnalytics?.capture?.(eventName, properties);
+}
+
 function renderFeaturedWork() {
   featuredWorkRoot.innerHTML = content.featuredWork
     .map(
@@ -203,16 +207,20 @@ function getApiBase() {
   return `${window.location.origin}/api/chat`;
 }
 
-async function handleQuestion(question) {
+async function handleQuestion(question, metadata = {}) {
   const trimmed = question.trim();
   if (!trimmed || chatBusy) {
     return;
   }
 
-  openChat();
+  openChat(metadata.source || "chat");
   markConversationStarted();
   appendMessage("user", trimmed);
   chatInput.value = "";
+  captureAnalytics("chat question submitted", {
+    source: metadata.source || "chat_input",
+    question_length: trimmed.length,
+  });
   setChatBusy(true);
 
   const typingMessage = appendMessage("assistant secondary", "Thinking through the most relevant portfolio context...");
@@ -255,11 +263,12 @@ async function handleQuestion(question) {
   }
 }
 
-function openChat() {
+function openChat(source = "unknown") {
   chatDrawer.classList.add("is-open");
   chatDrawer.setAttribute("aria-hidden", "false");
   chatOverlay.hidden = false;
   document.body.classList.add("chat-open");
+  captureAnalytics("chat opened", { source });
   requestAnimationFrame(() => {
     chatInput.value = "";
     chatInput.focus();
@@ -275,7 +284,7 @@ function closeChat() {
 
 chatForm.addEventListener("submit", (event) => {
   event.preventDefault();
-  handleQuestion(chatInput.value);
+  handleQuestion(chatInput.value, { source: "chat_input" });
 });
 
 chatOpeners.forEach((button) => {
@@ -284,13 +293,15 @@ chatOpeners.forEach((button) => {
     if (placeholder) {
       chatInput.placeholder = placeholder;
     }
-    openChat();
+    openChat(button.dataset.chatOpenSource || "chat_launcher");
   });
 });
 
 chatPrompts.forEach((button) => {
   button.addEventListener("click", () => {
-    handleQuestion(button.dataset.chatPrompt || button.textContent || "");
+    handleQuestion(button.dataset.chatPrompt || button.textContent || "", {
+      source: "drawer_prompt",
+    });
   });
 });
 

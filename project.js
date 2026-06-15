@@ -24,6 +24,11 @@ const projectDetailOutcome = document.getElementById("project-detail-outcome");
 
 if (selectedProject) {
   document.title = `${selectedProject.title} | Anshul Shrivastava`;
+  window.portfolioAnalytics?.capture?.("project viewed", {
+    slug: selectedProject.slug,
+    title: selectedProject.title,
+    tag: selectedProject.tag,
+  });
   projectTag.textContent = selectedProject.tag;
   projectTitle.textContent = selectedProject.title;
   projectSummary.textContent = selectedProject.summary;
